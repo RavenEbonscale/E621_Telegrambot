@@ -8,16 +8,19 @@ using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
+using System.Configuration;
 
 namespace Telegram_Bot
 {
     internal class Program
     {
         private static ITelegramBotClient botClient;
+        
 
         private static void Main()
         {
-            botClient = new TelegramBotClient("telegrambot-api-here");
+            ApiKeys api = new ApiKeys();
+            botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
 

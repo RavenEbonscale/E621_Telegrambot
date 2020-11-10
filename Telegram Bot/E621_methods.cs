@@ -13,12 +13,13 @@ namespace e621thing
 
         private static async Task<E621Classes> E621Request(string url)
         {
-            API_key Api_Key = new API_key();
+            
+            ApiKeys api = new ApiKeys();
             var client = new HttpClient();
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-            client.DefaultRequestHeaders.Add("api-key", Api_Key.ApiKey);
-            client.DefaultRequestHeaders.Add("user-agent", Api_Key.useragent);
-            client.DefaultRequestHeaders.Add("username", Api_Key.username);
+            client.DefaultRequestHeaders.Add("api-key", api.ApiKeyE621);
+            client.DefaultRequestHeaders.Add("user-agent", api.useragent);
+            client.DefaultRequestHeaders.Add("username", api.username);
             HttpResponseMessage responseMessage = await client.SendAsync(requestMessage);
             string response = await responseMessage.Content.ReadAsStringAsync();
             E621Classes e621 = JsonConvert.DeserializeObject<E621Classes>(response);

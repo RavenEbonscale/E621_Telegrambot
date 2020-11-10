@@ -5,9 +5,7 @@ namespace Telegram_Bot
 {
     internal class API_key
     {
-        public readonly string ApiKey = "Api-key-here";
-        public readonly string username = "Username-here";
-        public readonly string useragent = "User-agent-here";
+
         public List<string> urls = new List<string>();
     }
 
