@@ -14,7 +14,7 @@ namespace e621thing
         private static async Task<E621Classes> E621Request(string url)
         {
             
-            ApiKeys api = new ApiKeys();
+            ApiKeys_local api = new ApiKeys_local();
             var client = new HttpClient();
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
             client.DefaultRequestHeaders.Add("api-key", api.ApiKeyE621);

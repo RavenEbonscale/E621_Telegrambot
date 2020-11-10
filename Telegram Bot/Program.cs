@@ -18,7 +18,7 @@ namespace Telegram_Bot
 
         private static void Main()
         {
-            ApiKeys api = new ApiKeys();
+            ApiKeys_local api = new ApiKeys_local();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
