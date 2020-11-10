@@ -54,13 +54,7 @@ namespace Telegram_Bot
             {
                 string text = e.Message.Text.ToLower();
                 //List of commands the bot can do so far
-                if (text.StartsWith("/test"))
-                {
-                    string url = "https://d.facdn.net/art/raventhedragon/1465266663/1465266663.raventhedragon_%D0%BF%D0%BF%D0%B0.png";
-                    MemoryStream thing = await VarFunctions.ImageGetter(url);
-                    await botClient.SendPhotoAsync(chatId: e.Message.Chat, thing);
-                    thing.Dispose();
-                }
+
                 if (text.StartsWith("/settags"))
 
                 {
