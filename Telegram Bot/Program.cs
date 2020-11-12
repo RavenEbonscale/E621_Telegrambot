@@ -7,9 +7,9 @@ using System.Net;
 using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Requests;
+
 using Telegram.Bot.Types;
-using System.Collections.Generic;
+
 using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Telegram_Bot
@@ -51,8 +51,6 @@ namespace Telegram_Bot
             string urls =  $"https://e621.net/posts.json?tags={tags}";
             (List<string>, List<string>) ImageUrl = await E621lookeruper.E621spam(urls);
 
-
-
                 List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
 
                 foreach (string iurl in ImageUrl.Item1.Take(20))
@@ -66,8 +64,6 @@ namespace Telegram_Bot
 
             }
 
-          
-            
            
         }
 
