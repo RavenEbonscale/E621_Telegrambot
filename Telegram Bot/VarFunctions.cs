@@ -21,7 +21,7 @@ namespace Telegram_Bot
         {
             Random rng = new Random();
 
-            return rng.Next(1, 101).ToString();
+            return rng.Next(1, 100000000).ToString();
         }
     }
 }

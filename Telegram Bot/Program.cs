@@ -46,26 +46,37 @@ namespace Telegram_Bot
         private static async void DragonMessageAsync(object sender, InlineQueryEventArgs e)
         {
             Console.WriteLine(e.InlineQuery.Query);
-            try {
+            
             string tags = e.InlineQuery.Query.Replace(",", "+");
             string urls =  $"https://e621.net/posts.json?tags={tags}";
             (List<string>, List<string>) ImageUrl = await E621lookeruper.E621spam(urls);
 
                 List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
 
-                foreach (string iurl in ImageUrl.Item1.Take(20))
+                foreach (string iurl in ImageUrl.Item1.Skip(0).Take(15))
                 {
-                    results.Add(new InlineQueryResultPhoto(VarFunctions.RNG(), iurl, iurl));
-                }
-                await botClient.AnswerInlineQueryAsync(e.InlineQuery.Id, results);
-            }
-            catch
-            {
+                if (iurl != null)
+                {
+                    Console.WriteLine(iurl);
+                    try
+                    {
+                        results.Add(new InlineQueryResultPhoto(VarFunctions.RNG(), iurl, iurl));
+                    }
+                    catch
+                    {
 
+                    }
+                    
+                }
+                    
+                }
+               await botClient.AnswerInlineQueryAsync(e.InlineQuery.Id, results,isPersonal: true,cacheTime: 0);
+                
             }
+            
 
            
-        }
+        
 
         //Telgregam related things
 
