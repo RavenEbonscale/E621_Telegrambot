@@ -5,7 +5,8 @@
 
 # User-specific files
 ApiKeys_local.cs
-*.rsuser
+ApiKeys.cs
+
 *.suo
 *.user
 *.userosscache

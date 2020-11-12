@@ -7,7 +7,10 @@ using System.Net;
 using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
+using System.Collections.Generic;
+using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Telegram_Bot
 {
@@ -28,7 +31,8 @@ namespace Telegram_Bot
 
             botClient.OnMessage += Bot_OnMessage;
 
-            //botClient.OnInlineQuery += DragonMessageAsync;
+            botClient.OnInlineQuery += DragonMessageAsync;
+            
 
             botClient.StartReceiving();
 
@@ -37,6 +41,34 @@ namespace Telegram_Bot
 
             //how you stop the program:P
             Console.ReadKey();
+        }
+
+        private static async void DragonMessageAsync(object sender, InlineQueryEventArgs e)
+        {
+            Console.WriteLine(e.InlineQuery.Query);
+            try {
+            string tags = e.InlineQuery.Query.Replace(",", "+");
+            string urls =  $"https://e621.net/posts.json?tags={tags}";
+            (List<string>, List<string>) ImageUrl = await E621lookeruper.E621spam(urls);
+
+
+
+                List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
+
+                foreach (string iurl in ImageUrl.Item1.Take(20))
+                {
+                    results.Add(new InlineQueryResultPhoto(VarFunctions.RNG(), iurl, iurl));
+                }
+                await botClient.AnswerInlineQueryAsync(e.InlineQuery.Id, results);
+            }
+            catch
+            {
+
+            }
+
+          
+            
+           
         }
 
         //Telgregam related things
@@ -143,7 +175,7 @@ namespace Telegram_Bot
                     }
                     catch(Telegram.Bot.Exceptions.ApiRequestException)
                     {
-                        await botClient.SendTextMessageAsync(e.Message.Chat, $"I'm sorry {Gayboi}T the files are big OwO");
+                        await botClient.SendTextMessageAsync(e.Message.Chat, $"I'm sorry {Gayboi} the files are big OwO");
                     }
                     catch
                     {
