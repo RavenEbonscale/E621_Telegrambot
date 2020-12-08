@@ -7,9 +7,7 @@ using System.Net;
 using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-
 using Telegram.Bot.Types;
-
 using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Telegram_Bot
@@ -21,7 +19,7 @@ namespace Telegram_Bot
 
         private static void Main()
         {
-            ApiKeys_local api = new ApiKeys_local();
+            ApiKeys api = new ApiKeys();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
@@ -53,7 +51,7 @@ namespace Telegram_Bot
 
                 List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
 
-                foreach (string iurl in ImageUrl.Item1.Skip(0).Take(15))
+                foreach (string iurl in ImageUrl.Item1.Skip(0).Take(30))
                 {
                 if (iurl != null)
                 {
@@ -207,6 +205,11 @@ namespace Telegram_Bot
 
                 {
                     await botClient.SendStickerAsync(chatId: e.Message.Chat, sticker: "CAACAgEAAxkBAAIDMF-njrB2b0k1qppbikGE7020NepdAAITAAMuHvUPrpbJaXUZk8UeBA");
+                }
+                
+                if(e.Message.Text.Contains("help"))
+                {
+                    await botClient.SendTextMessageAsync($"Hi,{Gayboi} here are a list of command (/settags, /search, /dance, /getgroup). Seperate tags with a ',' example:(/search dragon,male,comic) ");
                 }
             }
             //Dumb error message of sorts

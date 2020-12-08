@@ -9,12 +9,10 @@ namespace Telegram_Bot
     {
         public static async Task<MemoryStream> ImageGetter(string url)
         {
-            using (var webClient = new WebClient())
-            {
-                byte[] imageBytes = webClient.DownloadData(url);
-                MemoryStream ms = new MemoryStream(imageBytes);
-                return ms;
-            }
+            using WebClient webClient = new WebClient();
+            byte[] imageBytes = webClient.DownloadData(url);
+            MemoryStream ms = new MemoryStream(imageBytes);
+            return ms;
         }
 
         public static string RNG()
