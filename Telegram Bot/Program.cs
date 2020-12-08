@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
@@ -17,12 +16,12 @@ namespace Telegram_Bot
     {
         private static ITelegramBotClient botClient;
         
-
+        
         private static void Main()
         {
             
-      
-            ApiKeys api = new ApiKeys();
+     
+            Apikeys api = new Apikeys();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
