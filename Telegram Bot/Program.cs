@@ -20,7 +20,9 @@ namespace Telegram_Bot
 
         private static void Main()
         {
-            ApiKeys_local api = new ApiKeys_local();
+            
+      
+            ApiKeys api = new ApiKeys();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
@@ -31,7 +33,6 @@ namespace Telegram_Bot
             botClient.OnMessage += Bot_OnMessage;
 
             botClient.OnInlineQuery += DragonMessageAsync;
-            
 
             botClient.StartReceiving();
 
