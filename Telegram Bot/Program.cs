@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
@@ -19,7 +20,7 @@ namespace Telegram_Bot
 
         private static void Main()
         {
-            ApiKeys api = new ApiKeys();
+            ApiKeys_local api = new ApiKeys_local();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
@@ -38,9 +39,10 @@ namespace Telegram_Bot
             Images();
 
             //how you stop the program:P
-            Console.ReadKey();
+            Thread.Sleep(-1);
+            
         }
-
+        
         private static async void DragonMessageAsync(object sender, InlineQueryEventArgs e)
         {
             Console.WriteLine(e.InlineQuery.Query);
@@ -201,7 +203,7 @@ namespace Telegram_Bot
                     }
                 }
 
-                if (e.Message.Text.Contains("Raven Ebonscale"))
+                if (e.Message.Text.Contains("raven ebonscale"))
 
                 {
                     await botClient.SendStickerAsync(chatId: e.Message.Chat, sticker: "CAACAgEAAxkBAAIDMF-njrB2b0k1qppbikGE7020NepdAAITAAMuHvUPrpbJaXUZk8UeBA");
@@ -209,7 +211,7 @@ namespace Telegram_Bot
                 
                 if(e.Message.Text.Contains("help"))
                 {
-                    await botClient.SendTextMessageAsync($"Hi,{Gayboi} here are a list of command (/settags, /search, /dance, /getgroup). Seperate tags with a ',' example:(/search dragon,male,comic) ");
+                    await botClient.SendTextMessageAsync(chatId: e.Message.Chat, text: $"Hi,{Gayboi} here are a list of command (/settags, /search, /dance, /getgroup). Seperate tags with a ',' example:(/search dragon,male,comic) ");
                 }
             }
             //Dumb error message of sorts
