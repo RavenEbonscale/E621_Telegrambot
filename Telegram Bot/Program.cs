@@ -20,9 +20,9 @@ namespace Telegram_Bot
         
         private static void Main()
         {
-            
-     
-            ApiKeys api = new ApiKeys();
+
+
+            Apikeys api = new Apikeys();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
@@ -43,34 +43,34 @@ namespace Telegram_Bot
             Thread.Sleep(-1);
             
         }
-        
+
         private static async void DragonMessageAsync(object sender, InlineQueryEventArgs e)
         {
             Console.WriteLine(e.InlineQuery.Query);
-            
+
             string tags = e.InlineQuery.Query.Replace(",", "+");
-            string urls =  $"https://e621.net/posts.json?tags={tags}";
+            string urls = $"https://e621.net/posts.json?tags={tags}";
             (List<string>, List<string>) ImageUrl = await E621lookeruper.E621spam(urls);
 
-                List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
+            List<InlineQueryResultBase> results = new List<InlineQueryResultBase>();
+            Parallel.ForEach(ImageUrl.Item1.Skip(0).Take(30), (iurl) =>
+             {
+                 if (iurl != null)
+                 {
+                     Console.WriteLine(iurl);
+                     try
+                     {
+                         results.Add(new InlineQueryResultPhoto(VarFunctions.RNG(), iurl, iurl));
+                     }
+                     catch
+                     {
 
-                foreach (string iurl in ImageUrl.Item1.Skip(0).Take(30))
-                {
-                if (iurl != null)
-                {
-                    Console.WriteLine(iurl);
-                    try
-                    {
-                        results.Add(new InlineQueryResultPhoto(VarFunctions.RNG(), iurl, iurl));
-                    }
-                    catch
-                    {
+                     }
 
-                    }
-                    
-                }
-                    
-                }
+
+                 }
+             });
+
                await botClient.AnswerInlineQueryAsync(e.InlineQuery.Id, results,isPersonal: true,cacheTime: 0);
                 
             }
