@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
@@ -21,7 +22,7 @@ namespace Telegram_Bot
         {
             
      
-            Apikeys api = new Apikeys();
+            ApiKeys api = new ApiKeys();
             botClient = new TelegramBotClient(api.ApiKeytele);
 
             var me = botClient.GetMeAsync().Result;
@@ -128,7 +129,7 @@ namespace Telegram_Bot
                             string imageurl = await E621lookeruper.E621search(url);
                             ;
                             await botClient.SendTextMessageAsync(e.Message.Chat, $"Grabing your image {Gayboi}");
-                            await botClient.SendPhotoAsync(chatId: e.Message.Chat, await VarFunctions.ImageGetter(imageurl));
+                            await botClient.SendPhotoAsync(chatId: e.Message.Chat, VarFunctions.ImageGetter(imageurl));
 
                             blewup = false;
                         }
@@ -155,7 +156,6 @@ namespace Telegram_Bot
                 {
                     Console.WriteLine(e.Message.From.Username);
                     string message = text.Replace("/getgroup", "").Trim().Replace(",", "+");
-
                     try
                     {
                         string url = $"https://e621.net/posts.json?tags={message}";
@@ -164,20 +164,21 @@ namespace Telegram_Bot
                         List<InputMediaPhoto> mediaim = new List<InputMediaPhoto>();
                         List<InputMediaVideo> mediavid = new List<InputMediaVideo>();
                         await botClient.SendTextMessageAsync(e.Message.Chat, $"I'm sorry {Gayboi} this may take a while");
-                        foreach (string imageurl in imageurls.Item1.Take(10))
 
-                            try
-                            {
+                        Parallel.ForEach(imageurls.Item1.Take(10),  (imageurl) =>
+                        {
+                            if (imageurl != null)
                                 if (!imageurl.Contains(".webm"))
                                 {
-                                    MemoryStream Is = await VarFunctions.ImageGetter(imageurl);
+                                    MemoryStream Is = VarFunctions.ImageGetter(imageurl);
 
                                     mediaim.Add(new InputMediaPhoto(new InputMedia(Is, VarFunctions.RNG().ToString())));
                                     Console.WriteLine(imageurl);
                                 }
-                            }
-                            catch { }
+                        }
+                        );
 
+                      
                         await botClient.SendMediaGroupAsync(mediaim, e.Message.Chat);
                     }
                     catch(Telegram.Bot.Exceptions.ApiRequestException)

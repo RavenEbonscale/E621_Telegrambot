@@ -7,7 +7,8 @@ namespace Telegram_Bot
 {
     internal class VarFunctions
     {
-        public static async Task<MemoryStream> ImageGetter(string url)
+        public static MemoryStream ImageGetter(string url)
+
         {
             using WebClient webClient = new WebClient();
             byte[] imageBytes = webClient.DownloadData(url);
