@@ -5,7 +5,6 @@ namespace Telegram_Bot
 {
     internal class API_key
     {
-
         public List<string> urls = new List<string>();
     }
 
@@ -34,5 +33,8 @@ namespace Telegram_Bot
 
         [JsonProperty("md5")]
         public string md5 { get; set; }
+        [JsonProperty("size")]
+        public double size { get; set; }
+
     }
 }

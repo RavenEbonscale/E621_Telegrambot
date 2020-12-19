@@ -46,7 +46,7 @@ namespace Telegram_Bot
 
         private static async void DragonMessageAsync(object sender, InlineQueryEventArgs e)
         {
-            Console.WriteLine(e.InlineQuery.Query);
+            
 
             string tags = e.InlineQuery.Query.Replace(",", "+");
             string urls = $"https://e621.net/posts.json?tags={tags}";
@@ -75,10 +75,6 @@ namespace Telegram_Bot
                 
             }
             
-
-           
-        
-
         //Telgregam related things
 
         private static async void Bot_OnMessage(object sender, MessageEventArgs e)

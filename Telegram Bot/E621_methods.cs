@@ -49,10 +49,17 @@ namespace e621thing
             List<string> superurls = new List<string>();
             List<string> supermd5 = new List<string>();
             {
+
                 foreach (var item in e621.posts)
                 {
-                    superurls.Add(item.file.url);
-                    supermd5.Add(item.file.md5);
+                   double SizeinMb = (item.file.size / 1e+6);
+                  
+                    if (SizeinMb <= 5)
+                    {
+                        Console.WriteLine(SizeinMb);
+                        superurls.Add(item.file.url);
+                        supermd5.Add(item.file.md5);
+                    }
                 }
                 return (superurls, supermd5);
             }
@@ -63,11 +70,20 @@ namespace e621thing
             E621Classes e621 = await E621Request(url);
             List<string> urls = new List<string>();
             List<string> md5 = new List<string>();
+            
+            
 
             foreach (var item in e621.posts)
             {
-                urls.Add(item.file.url);
-                md5.Add(item.file.md5);
+                int SizeinMb = ((int)(item.file.size/1e+6));
+                Console.WriteLine(SizeinMb);
+                //added in size calculation 1+e6 to turns the size from the APi to Mbs
+                if (SizeinMb <= 3)
+                {
+                    
+                    urls.Add(item.file.url);
+                    md5.Add(item.file.md5);
+                }
             }
 
             return (urls[0], md5[0]);
